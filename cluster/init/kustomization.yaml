@@ -1,0 +1,5 @@
+namespace: flux-system
+resources:
+  - namespace.yaml
+  - rbac.yaml
+  - psp.yaml
