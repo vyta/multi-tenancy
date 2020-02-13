@@ -9,7 +9,7 @@ spec:
         - name: flux
           args:
             - --manifest-generation=true
-            - --memcached-hostname=flux-memcached.flux-system
+            - --memcached-hostname=memcached.cluster-operator
             - --memcached-service=
             - --git-poll-interval=5m
             - --sync-interval=5m
@@ -17,6 +17,7 @@ spec:
             - --k8s-allow-namespace=team1
             - --git-url=git@github.com:vyta/multi-tenancy-team1
             - --git-branch=master
+            - --git-readonly
 ---
 apiVersion: rbac.authorization.k8s.io/v1beta1
 kind: RoleBinding
