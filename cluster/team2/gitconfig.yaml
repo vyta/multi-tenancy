@@ -1,0 +1,16 @@
+apiVersion: clusterconfig.azure.com/v1beta1
+kind: GitConfig
+metadata:
+  name: cluster-admin-config
+  namespace: team1
+spec:
+  correlationId: ""
+  deleteOperator: false
+  enableHelmOperator: false
+  giturl: git@github.com:vyta/multi-tenancy-team1
+  helmOperatorProperties: null
+  operatorClientLocation: azurearcfork8s.azurecr.io/arc-preview/fluxctl:0.1.3
+  operatorInstanceName: cluster-operator
+  operatorParams: --git-branch master --git-path cluster --git-email vyta@microsoft.com --manifest-generation true --git-readonly
+  operatorScope: cluster
+  operatorType: flux
