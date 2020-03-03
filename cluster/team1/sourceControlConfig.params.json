@@ -1,0 +1,30 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "clusterLocation": {
+            "value": "eastus"
+        },
+        "clusterName": {
+            "value": "vys-engine"
+        },
+        "configurationResourceName": {
+            "value": "team1-config"
+        },
+        "operatorInstanceName": {
+            "value": "team1"
+        },
+        "operatorNamespace": {
+            "value": "team1"
+        },
+        "operatorScope": {
+            "value": "namespace"
+        },
+        "operatorParams": {
+            "value": "--git-branch master --git-readonly"
+        },
+        "repositoryUrl": {
+            "value": "git://github.com/vyta/multi-tenancy-team1.git"
+        }
+    }
+}

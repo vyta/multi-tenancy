@@ -1,0 +1,96 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "clusterLocation": {
+            "type": "string",
+            "metadata": {
+                "displayName": "Connected Cluster Location",
+                "description": "The Azure location for the connected cluster.  For example, East US."
+            }
+        },
+        "clusterName": {
+            "type": "string",
+            "metadata": {
+                "displayName": "Connected Cluster Name",
+                "description": "The ARM name for the Microsoft.Kubernetes/connectedClusters resource that the configuration will be created on."
+            }
+        },
+        "configurationResourceName": {
+            "type": "string",
+            "metadata": {
+                "displayName": "Configuration Resource Name",
+                "description": "The ARM name for the Microsoft.Kubernetes/connectedClusters/providers/sourceControlConfigurations resource that will be created."
+            }
+        },
+        "operatorInstanceName": {
+            "type": "string",
+            "metadata": {
+                "displayName": "Operator Instance Name",
+                "description": "The instance name of the operator, used to identify the specific configuration. The instance name can contain up to 353 lower-case alphanumeric characters, hyphen, or period."
+            }
+        },
+        "operatorNamespace": {
+            "type": "string",
+            "metadata": {
+                "displayName": "Operator Namespace",
+                "description": "The namespace in which the Config operator will be installed. The namespace can contain up to 353 lower-case alphanumeric characters, hyphen, or period."
+            }
+        },
+        "operatorScope": {
+            "type": "string",
+            "metadata": {
+                "displayName": "Operator Scope",
+                "description": "Enter the scope of influence for the operator: 'cluster' gives the operator permission to make changes throughout the cluster; 'namespace' gives the operator permission to make changes only in the namespace."
+            },
+            "allowedValues": [
+                "cluster",
+                "namespace"
+            ],
+            "defaultValue": "namespace"
+        },
+        "operatorType": {
+            "type": "string",
+            "metadata": {
+                "displayName": "Operator Type",
+                "description": "The type of operator to install. Currently, 'Flux' is supported."
+            },
+            "allowedValues": [
+                "Flux"
+            ],
+            "defaultValue": "Flux"
+        },
+        "operatorParams": {
+            "type": "string",
+            "metadata": {
+                "displayName": "Operator Parameters",
+                "description": "Parameters to pass to the Flux operator, separated by spaces.  For example, --git-email someuser@users.noreply.github.com --git-path namespaces,workloads.  If the --git-email parameter is not included, then the --git-readonly flag will be set automatically."
+            },
+            "defaultValue": ""
+        },
+        "repositoryUrl": {
+            "type": "string",
+            "metadata": {
+                "displayName": "Repository Url",
+                "description": "The Url of the source control repository."
+            }
+        }
+    },
+    "resources": [
+        {
+            "comments": "Create a source control configuration for the connected cluster.",
+            "type": "Microsoft.Kubernetes/connectedClusters/providers/sourceControlConfigurations",
+            "name": "[concat(parameters('clusterName'), '/Microsoft.KubernetesConfiguration/', parameters('configurationResourceName'))]",
+            "apiVersion": "2019-11-01-preview",
+            "location": "[parameters('clusterLocation')]",
+            "properties": {
+                "operatorInstanceName": "[parameters('operatorInstanceName')]",
+                "operatorNamespace": "[parameters('operatorNamespace')]",
+                "operatorScope": "[parameters('operatorScope')]",
+                "operatorType": "[parameters('operatorType')]",
+                "operatorParams": "[parameters('operatorParams')]",
+                "repositoryUrl": "[parameters('repositoryUrl')]"
+            }
+        }
+    ]
+}
